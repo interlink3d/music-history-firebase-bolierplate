@@ -5,6 +5,8 @@ let $ = require('jquery'),
     templates = require("./dom-builder"),
     login = require("./user");
 
+var userId = "";
+
 // Using the REST API
 function loadSongsToDOM() {
   $(".uiContainer--wrapper").html("");  // cleared the DOM before loading songs
@@ -18,7 +20,7 @@ function loadSongsToDOM() {
       templates.makeSongList(songData);
     });
 }
-loadSongsToDOM(); //<--Move to auth section after adding login btn
+// loadSongsToDOM(); //<--Move to auth section after adding login btn
 
 // Send newSong data to db then reload DOM with updated song data
 $(document).on("click", ".save_new_btn", function() {
@@ -71,10 +73,17 @@ $(document).on("click", "#view-songs", function () {
 
 //***************************************************************
 // User login section. Should ideally be in its own module
-// $("#auth-btn").click(function() {
-//   console.log("clicked auth");
-
-// });
+$("#auth-btn").click(function() {
+  console.log("clicked auth");
+  login()
+  .then(function (result) {
+    // var token = result.credential.accessToken;
+    let user = result.user;
+    console.log("logged in user", user.uid);
+    userId = user.uid;
+    loadSongsToDOM();
+  });
+});
 //****************************************************************
 
 // Helper functions for forms stuff. Nothing related to Firebase
@@ -84,7 +93,8 @@ function buildSongObj() {
     title: $("#form--title").val(),
     artist: $("#form--artist").val(),
     album: $("#form--album").val(),
-    year: $("#form--year").val()
+    year: $("#form--year").val(),
+    uid: userId
   };
   return songObj;
 }

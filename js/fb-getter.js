@@ -2,9 +2,8 @@
 
 function getKey() {
   return {
-    key: "",
-    url: "",
-    bucketUrl: ""
+    key: "AIzaSyDRJ14FWte_T45kEbk2ugekuox30eBsKwM",
+    authUrl: "music-history-54c84.firebaseapp.com"
   };
 }
 

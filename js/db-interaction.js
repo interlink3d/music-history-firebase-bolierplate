@@ -36,7 +36,7 @@ function deleteSong(songId) {
   return new Promise(function (resolve, reject) {
     $.ajax({
       url: `https://music-history-54c84.firebaseio.com/songs/${songId}.json`,
-      type: 'DELETE',
+      type: 'DELETE'
     }).done(function (data) {
       resolve(data);
     });
